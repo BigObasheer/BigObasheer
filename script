@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+# This script contains all of my custom options I use
+# on every single Linux setup
+
+# General Linux Commands
+apt-get -y update
+apt-get -y install git python3 python3-pip pep8 gcc
+
+# ------------------------- #
+#      MICRO (EDITOR)       #
+# ------------------------- #
+echo -e "\nINSTALLING MICRO"
+
+cd /usr/bin/
+curl https://getmic.ro | bash
+mv micro mi
+mkdir -p ~/.config/micro/
+touch ~/.config/micro/settings.json
+cat > ~/.config/micro/settings.json << EOF
+{
+    "*.c": {
+        "tabsize": 8
+    },
+    "*.js": {
+        "tabsize": 2
+    },
+    "colorscheme": "simple"
+}
+EOF
+echo "----------------------------"
+echo -e "SUCESSFULLY INSTALLED MICRO"
+echo "----------------------------"
+
+# ------------------------- #
+#         GITHUB            #
+# ------------------------- #
+# 	- Get the most common repos
+cd
+PWD=$(pwd)
+echo -e "\n\nCloning GitHub Repos to $PWD"
+#	- Clone necessary repos
+git clone https://github.com/BigOBasheer/holbertonschool-higher_level_programming
+git clone https://github.com/BigOBasheer/holbertonschool-low_level_programming
+git clone https://github.com/BigOBasheer/holberton-system_engineering-devops
+#	- Set Global Username / User Email
+git config --global user.name "BigOBasheer"
+git config --global user.email "838@holbertonschool.com"
+git config --global credential.helper store
+echo "----------------------------"
+echo "SUCESSFULLY CLONED GITHUB"
+echo "----------------------------"
+
+# ------------------------- #
+#   CUSTOM ALIASES + PS1    #
+# ------------------------- #
+cat >> ~/.bashrc << EOF
+export PS1="\h > \[\033[38;5;45m\]\W\[$(tput sgr0)\] >>> \[$(tput sgr0)\]"
+alias hi="ssh -i ~/.ssh/private root@hi.osamabasheer.me"
+# alias web01="ssh -i ~/.ssh/holberton ubuntu@[IP-ADDRESS]"
+# alias web02="ssh -i ~/.ssh/holberton ubuntu@[IP-ADDRESS]"
+# alias lb="ssh -i ~/.ssh/holberton ubuntu@[IP-ADDRESS]"
+alias hi="cd ~/holbertonschool-higher_level_programming && git pull origin master"
+alias low="cd ~/holbertonschool-low_level_programming && git pull origin master"
+alias dev="cd ~/holberton-system_engineering-devops && git pull origin master"
+EOF
+source ~/.bashrc
+
+# ------------------------- #
+#            SSH            #
+# ------------------------- #
+echo -e "\n\nINSTALLING PRIVATE KEYS"
+mkdir -p ~/.ssh/
+cd ~/.ssh/
+touch private
+cat > private << EOF
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAvfSQ9bTLoLmaXjv12VdKZwD4FuGX5BP2gaVyzlTp2PrWq2KR
+yD0jjZnZBGKGlhSYZOQq5laU1TX0hKZroIg6XgdA3XRkENDvuWmWFiUbHnGwrwHB
+0rs4HCrVinmUqfuwZ2NpLxRKPQZ7pErc8mAZ5C1jzXrYLfRI9939ij2ufM42L/yw
+LVjQHTx9QnQnx24kxghKDDXdjRXR/YNsjBHFLOVe/wTD0GvmMSGj1jrevtSdUOxh
+LGMNdjIDHND2+OtAIZ7baBfDx+4IB8rwXdoxkvPU7pFSO/K2VlaGOujAECcY8jAo
+IYKsLrPg/DeVtPXiu0OwJNCFnIhxkiJNH6xxGQIDAQABAoIBACqhXHcIIDrt7IsB
+gedJA9WiDgt0jZYONOBbtSxBOkoL4WmNMZJyxivdPysQwYulC5545nfTLou7FClB
+AB6C9DZuAkyw9lQfz+0YmSpXIYLvmOttxYX5ploL8uik6IxNhAVv9gcu0opnjhAN
+DREIKEdhOGjBDQsjK80U8PW5ahNwAC7yJDQxfko70Je36LSgS+b66tU7VdNOMRMt
+TwwIBXjnIc8yKPJMcfpUjburupPXiAu1Zs7oWgTh6VUs8pJOMPn6sq4VnvxTNycL
+s1IqrWgg2MuLqN9FjNqWmjNuwJftV0RI6YV3D6yx70J3chEUmovgpGOmtUUH8pCS
+JKanFAECgYEA/GUsJB8TlFQcwhQJp+FOgIlHUHHX2AIRYn2C3McMoKYordh4L9kG
+9K9TVE79mR4IzibIXTdORlZRxoyVy2kpdgo91Xhr7izRROSpl3dp2l4BCBThhjfl
+VfeCKc/o0vG52id1Wc0jw7IXN1IxcMX/nsP6Z+bjkOLmvrHyw+CnGjkCgYEAwKsY
+nuH2GYlQRzMAmOJG5i6SS/aUImPjtOOozJiMQLUGca83tNHp2NAEVhGfVIjhC7+7
+rY0Un1lQtQZ6q3hZyWRi9gx9TuxSqKQ6t9T/oU4uluLwQnYe2XDNLRv2UWXBbqnd
+cj95WDv5igx99FQBsKMycQkHU5/ZrozV+yJFjeECgYAE10fudW4htS9MBahdwPOJ
+gZiNkXFrYjbFJdUhuOukFSvIkdNUT5xTix1VC6LPkgTnN1U2fH4S2Ur+POoOmbjC
+29Vtx76CNffZk20xS4gLOSxZ5FSjB2Vtra6gcK1thldjOMiGbWnXMg5B8GCkYhfS
+Cr49ye7pc4CrfaxDV4a8+QKBgQCGY5Gj2XdArq/pSeEDwumzSw7On6sKJeTB2v51
+334M8HgTOiXAIZ9clRRBOL+LRoK7IDz3vG2DDNinvGI6UpNGT5hbibCqKVsquIsg
+iRjZ2d/TbW4q3Zt9Dhp/eX6hnjmDSEbnlvC8I/FWYopEr4gSPnNDtwl+QgSjpSbo
+qiob4QKBgQC6Yw1J6hi3957/mcsZmNFv9sQHZb+s9zP8pKq19D+wDZtAWImyQ3eN
+6qc4s5DlPpMxhXsOjBHkQIwVOH2H8Mv0ZUDbWeM77m9QiBpKbsHY5RLLz5bWrM0u
+BTg9o58lh1ApUhp985+9m2qgPJElxot32rmYTslhqujm7jldMBAWPg==
+-----END RSA PRIVATE KEY-----
+EOF
+chmod 0600 private
+
+# ------------- TO BE ADDED TRIMESTER 3 ----------------- #
+# touch holberton
+# cat > holberton << EOF
+# -----BEGIN RSA PRIVATE KEY-----
+# MIIEowIBAAKCAQEAvPMMaojwrvvv62jeJ7ynjo4EQy3i9aY9EDCj6FlndO7+iAaI
+# U2sV5D77o6CArrEwQwZO0SXubnKiAkUxf+kBv0RaTCB7EJNnmMaJ
+# -----END RSA PRIVATE KEY-----
+# EOF
+# chmod 0600 holberton
+# ------------- TO BE ADDED TRIMESTER 3 ----------------- #
+
+echo -e "\nADDING AUTH KEYS"
+cat >> ~/.ssh/authorized_keys << EOF
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC99JD1tMuguZpeO/XZV0pnAPgW4ZfkE/aBpXLOVOnY+tarYpHIPSONmdkEYoaWFJhk5CrmVpTVNfSEpmugiDpeB0DddGQQ0O+5aZYWJRsecbCvAcHSuzgcKtWKeZSp+7BnY2kvFEo9BnukStzyYBnkLWPNetgt9Ej33f2KPa58zjYv/LAtWNAdPH1CdCfHbiTGCEoMNd2NFdH9g2yMEcUs5V7/BMPQa+YxIaPWOt6+1J1Q7GEsYw12MgMc0Pb460AhnttoF8PH7ggHyvBd2jGS89TukVI78rZWVoY66MAQJxjyMCghgqwus+D8N5W09eK7Q7Ak0IWciHGSIk0frHEZ root@Osama
+EOF
+
+echo -e "\nSUCESSFULLY COMPLETED THE SCRIPT"
