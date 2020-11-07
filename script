@@ -55,7 +55,7 @@ echo "----------------------------"
 # ------------------------- #
 cat >> ~/.bashrc << EOF
 export PS1="\h > \[\033[38;5;45m\]\W\[$(tput sgr0)\] >>> \[$(tput sgr0)\]"
-alias hi="ssh -i ~/.ssh/private root@hi.osamabasheer.me"
+alias pro="ssh -i ~/.ssh/private root@hi.osamabasheer.me"
 # alias web01="ssh -i ~/.ssh/holberton ubuntu@[IP-ADDRESS]"
 # alias web02="ssh -i ~/.ssh/holberton ubuntu@[IP-ADDRESS]"
 # alias lb="ssh -i ~/.ssh/holberton ubuntu@[IP-ADDRESS]"
